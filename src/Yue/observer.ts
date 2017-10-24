@@ -39,7 +39,6 @@ export default class Observer {
         return val
       }
     })
-
   }
 
   obseverChild (val) {
