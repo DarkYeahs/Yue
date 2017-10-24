@@ -31,7 +31,7 @@ export default class Observer {
         if (newVal === val) return
         val = newVal
         childObj = me.obseverChild(val)
-        dep.nofity()
+        dep.notify()
       },
 
       get () {

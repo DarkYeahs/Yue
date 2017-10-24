@@ -27,7 +27,10 @@ export class Yue {
     this.$observer = new Observer(this.$data)
     if (this.$el) this.compile(this.$el)
   }
-
+  /**
+   * [initComputed 初始化computerd上的计算数据]
+   * @return {[type]} [description]
+   */
   initComputed () {
     let computed = this.$options.computed
 
@@ -36,12 +39,15 @@ export class Yue {
         Object.defineProperty(this, key, {
           enumerable: true,
           configurable: false,
-          set () {},
+          set () {}, //  computed上的数据不可赋值只能读取
           get: typeof computed[key] === 'function' ? computed[key] : computed.get
         })
       })
   }
-
+/**
+ * [proxyData 将data上的数据映射到Yue上]
+ * @return {[type]} [description]
+ */
   proxyData () {
     let data = this.$data
     let me = this
@@ -65,7 +71,7 @@ export class Yue {
     this.$compile = new Compile(el, this)
   }
 
-  mounted (el: string) {
+  $mounted (el: string) {
     this.$el = el
     this.compile(this.$el)
   }
