@@ -9,7 +9,7 @@ export class Yue {
   $data: any;
   $template: string;
   $compile: any;
-  $observer: Observer = new Observer();
+  $observer: Observer;
 
   constructor (opt) {
     this.$options = opt
@@ -23,6 +23,7 @@ export class Yue {
       throw new Error('the data param should be function or object')
     }
 
+    this.$observer = new Observer(this.$data)
     if (this.$el) this.compile(this.$el)
   }
 

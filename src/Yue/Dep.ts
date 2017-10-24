@@ -1,16 +1,20 @@
-let uid = 0
-
 export default class Dep {
-  id:number = uid++
   subs: Array<any>;
-  target:any = null
+  static target: any = null;
+  static uid: number = 0;
+  id: number;
+
+  constructor () {
+    Dep.uid++
+    this.id = Dep.uid
+  }
 
   addSub (sub) {
     this.subs.push(sub)
   }
 
   depend () {
-      this.target.addDep(this);
+      Dep.target.addDep(this);
   }
 
   removeSub (sub) {
