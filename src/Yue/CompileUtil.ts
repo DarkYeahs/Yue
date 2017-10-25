@@ -4,6 +4,7 @@ import Watcher from './watcher'
 class CompileUtil {
 
   text (node, vm, exp) {
+    console.log(exp)
     this.bind(node, vm, exp, 'text')
   }
 

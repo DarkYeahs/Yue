@@ -28,7 +28,7 @@ export default class Watcher {
     let oldVal = this.$value
     if (val !== oldVal) {
       this.$value = val
-      this.$cb.apply(this.$vm, val, oldVal)
+      this.$cb.call(this.$vm, val, oldVal)
     }
   }
 

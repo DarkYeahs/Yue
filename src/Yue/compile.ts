@@ -1,3 +1,5 @@
+import compileUtil from './CompileUtil'
+
 export default class Compile {
 
   $el: string;
@@ -18,43 +20,51 @@ export default class Compile {
     if (this.$template === undefined) {
       let template: any = document.querySelector(this.$el) || new Element()
       this.$template = template
-      console.log(this.$template)
     }
-  }
-
-  compileElement (el) {
-    let childNodes = el.childNodes
-    let me = this;
-    [].slice.call(childNodes).forEach(node => {
-      let reg = /\{\{.*\}\}/
-      let text = node.textContent
-
-      if (me.isElementNode(node)) {
-
-      }
-      else if (me.isTextNode(node) && reg.test(text)) {
-
-      }
-      else if (node.childNodes && node.childNodes.length) {
-        me.compileElement(node)
-      }
-    })
-    let reg = /\{\{.*\}\}/
-  }
-
-  compile () {
-
   }
 
   createFragment () {
     let fragment = document.createDocumentFragment()
     let child
 
-    while (child = this.$template.firstChild) {
-      fragment.appendChild(child)
-    }
+    while (child = this.$template.firstChild) fragment.appendChild(child)
 
     return fragment
+  }
+
+  compileElement (el) {
+    let childNodes = el.childNodes;
+
+    [].slice.call(childNodes).forEach(node => {
+      let reg = /\{\{.*\}\}/
+      let text = node.textContent
+      let res = reg.exec(text)
+      if (this.isElementNode(node)) this.compile(node)
+      else if (this.isTextNode(node) && res) this.compileText(node, res[0].slice(2, -2))
+
+      if (node.childNodes && node.childNodes.length > 0) this.compileElement(node)
+    })
+  }
+
+  compile (node) {
+    let nodeAttrs = node.attributes;
+
+    [].slice.call(nodeAttrs).forEach(attr => {
+      let attrName = attr.name
+      if (this.isDirective(attrName)) {
+        let exp = attr.value
+        let dir = attrName.substring(2)
+
+        if (this.isEventDirective(dir)) compileUtil.eventHandler(node, this.$vm, exp, dir)
+        else compileUtil[dir] && compileUtil[dir](node, this.$vm, exp)
+
+        node.removeAttribute(attrName)
+      }
+    })
+  }
+
+  compileText (node, exp) {
+    compileUtil.text(node, this.$vm, exp)
   }
 
   isElementNode (node) {
@@ -63,5 +73,13 @@ export default class Compile {
 
   isTextNode (node) {
       return node.nodeType === 3;
+  }
+
+  isDirective (attr) {
+    return attr.indexOf('v-') === 0
+  }
+
+  isEventDirective (dir) {
+    return dir.indexOf('on') === 0
   }
 }

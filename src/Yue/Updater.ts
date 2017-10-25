@@ -1,6 +1,7 @@
 class Updater {
 
   textUpdater (node, value) {
+    console.log(node, value)
     node.textContent = typeof value === 'undefined' ? '' : value
   }
 
