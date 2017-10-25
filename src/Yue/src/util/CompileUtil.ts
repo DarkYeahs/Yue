@@ -1,5 +1,11 @@
+/*
+*  @create Date:2017-10-16 Monday
+*  @author: Yeahs
+*  @email: yeahschen@gmail.com
+*/
+
 import updater from './Updater'
-import Watcher from './watcher'
+import Watcher from '../watcher'
 
 class CompileUtil {
 

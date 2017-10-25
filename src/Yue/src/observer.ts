@@ -1,3 +1,10 @@
+/*
+*  @create Date:2017-10-16 Monday
+*  @author: Yeahs
+*  @email: yeahschen@gmail.com
+*/
+
+
 import Dep from './Dep'
 export default class Observer {
   $data:any
