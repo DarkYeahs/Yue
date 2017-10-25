@@ -5,7 +5,13 @@
 */
 
 import compileUtil from './util/CompileUtil'
-
+/**
+ * [constructor 编译类]
+ * @param  {[type]} $el [挂靠dom的id值]
+ * @param  {[type]} $vm [Yue对象]
+ * @param  {[type]} $fragment [创建的文档碎片]
+ * @param  {[type]} $template [虚拟dom模版]
+ */
 export default class Compile {
 
   $el: string;
@@ -21,7 +27,9 @@ export default class Compile {
     this.compileElement(this.$fragment)
     this.$template.appendChild(this.$fragment)
   }
-
+  /**
+   * [initTemplate 初始化template]
+   */
   initTemplate () {
     if (this.$template === undefined) {
       let template: any = document.querySelector(this.$el) || new Element()
@@ -29,6 +37,10 @@ export default class Compile {
     }
   }
 
+  /**
+   * [createFragment 创建文档碎片]
+   * @return {[type]} [返回创建的文档碎片]
+   */
   createFragment () {
     let fragment = document.createDocumentFragment()
     let child
@@ -38,6 +50,10 @@ export default class Compile {
     return fragment
   }
 
+  /**
+   * [compileElement 编译template]
+   * @param  {[type]} el [template]
+   */
   compileElement (el) {
     let childNodes = el.childNodes;
 
@@ -52,6 +68,10 @@ export default class Compile {
     })
   }
 
+  /**
+   * [compile 编译dom节点]
+   * @param  {[type]} node [dom节点]
+   */
   compile (node) {
     let nodeAttrs = node.attributes;
 
@@ -69,22 +89,47 @@ export default class Compile {
     })
   }
 
+  /**
+   * [compileText 编译文本节点]
+   * @param  {[type]} node [文本节点]
+   * @param  {[type]} exp  [key值]
+   */
   compileText (node, exp) {
     compileUtil.text(node, this.$vm, exp)
   }
 
+  /**
+   * [isElementNode 判断是否为dom节点]
+   * @param  {[type]} node [dom节点]
+   * @return {[type]}      [返回判断结果]
+   */
   isElementNode (node) {
       return node.nodeType === 1;
   }
 
+  /**
+   * [isTextNode 判断是否为文本节点]
+   * @param  {[type]} node [dom节点]
+   * @return {[type]}      [返回判断结果]
+   */
   isTextNode (node) {
       return node.nodeType === 3;
   }
 
+  /**
+   * [isDirective 判断是否为指令]
+   * @param  {[type]} dir [attr名]
+   * @return {[type]}     [返回判断结果]
+   */
   isDirective (attr) {
     return attr.indexOf('v-') === 0
   }
 
+/**
+ * [isEventDirective 判断是否为事件指令]
+ * @param  {[type]} dir [attr名]
+ * @return {[type]}     [返回判断结果]
+ */
   isEventDirective (dir) {
     return dir.indexOf('on') === 0
   }

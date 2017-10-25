@@ -7,7 +7,15 @@
 import Watcher from './watcher'
 import Observer from './observer'
 import Compile from './compile'
-
+/**
+ * [constructor Yue类]
+ * @param  {[type]} $options [配置项]
+ * @param  {[type]} $el [el元素id]
+ * @param  {[type]} $data [监测数据]
+ * @param  {[type]} $template [模版]
+ * @param  {[type]} $compile [编译对象]
+ * @param  {[type]} $observer [数据监测对象]
+ */
 export class Yue {
 
   $options: any;
