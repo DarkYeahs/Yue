@@ -7,7 +7,7 @@
 
 import Dep from './Dep'
 /**
- * [constructor 观察数据类]
+ * [constructor 监测数据类]
  * @param  {[type]} data [Yue对象上的data数据]
  */
 export default class Observer {

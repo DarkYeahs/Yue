@@ -4,9 +4,9 @@
 *  @email: yeahschen@gmail.com
 */
 /**
- * [Dep Yue数据的观察类]
+ * [Dep Yue数据的发布类]
  * @param  {[type]} subs [订阅者队列]
- * @param  {[type]} target [当前Watcher对象]
+ * @param  {[type]} target [当前订阅对象]
  * @param  {[type]} uid [静态id]
  * @param  {[type]} id [dep对象id]
  */
@@ -30,7 +30,7 @@ export default class Dep {
   }
 
   /**
-   * [depend 将当前的发布者加入到观察对象]
+   * [depend 缓存当前的订阅对象，并判断当前订阅对象是否定订阅该发布者，否的话将其加入订阅队列中]
    */
   depend () {
       Dep.target.addDep(this);

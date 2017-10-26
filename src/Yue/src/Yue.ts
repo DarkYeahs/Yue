@@ -4,9 +4,9 @@
 *  @email: yeahschen@gmail.com
 */
 
-import Watcher from './watcher'
-import Observer from './observer'
-import Compile from './compile'
+import Watcher from './Watcher'
+import Observer from './Observer'
+import Compile from './Compile'
 /**
  * [constructor Yue类]
  * @param  {[type]} $options [配置项]

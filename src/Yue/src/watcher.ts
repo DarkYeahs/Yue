@@ -6,7 +6,7 @@
 
 import Dep from './Dep'
 /**
- * [constructor 观察类]
+ * [constructor 订阅者类]
  * @param  {[type]}   $vm      [Yue对象]
  * @param  {[type]}   $expOrFn [key值或者函数值]
  * @param  {Function} $cb      [回调函数]
@@ -52,7 +52,7 @@ export default class Watcher {
   }
 
   /**
-   * [addDep 将发布者加入到观察队列中]
+   * [addDep 将发布者加入到订阅队列中]
    * @param  {Dep}    dep [发布者]
    */
   addDep (dep: Dep) {
@@ -69,7 +69,7 @@ export default class Watcher {
     let val
 
     Dep.target = this
-    val = this.$getter.call(this.$vm, this.$vm)
+    val = this.$getter.apply(this.$vm, this.$vm)
     Dep.target = null
     return val
   }
