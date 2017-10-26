@@ -20,6 +20,7 @@ export default class Dep {
     Dep.uid++
     this.id = Dep.uid
     this.subs = []
+
   }
   /**
    * [addSub 添加订阅者]

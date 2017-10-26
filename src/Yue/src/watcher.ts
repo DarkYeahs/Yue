@@ -15,18 +15,22 @@ import Dep from './Dep'
  * @param  {Function} $value      [监测值]
  */
 export default class Watcher {
+  $id: number
   $vm:any;
   $cb: any;
   $expOrFn: any;
   $depIds: any;
   $getter: Function;
   $value: any;
+  static $vuid:number = 0;
 
   constructor (vm, expOrFn, cb) {
     this.$cb = cb
     this.$vm = vm
     this.$expOrFn = expOrFn
-    this.$depIds = {}
+    this.$depIds = []
+    Watcher.$vuid++;
+    this.$id = Watcher.$vuid
 
     if (typeof expOrFn === 'function') this.$getter = expOrFn
     else this.$getter = this.parseGetter(expOrFn)
@@ -56,9 +60,9 @@ export default class Watcher {
    * @param  {Dep}    dep [发布者]
    */
   addDep (dep: Dep) {
-    if (!this.$depIds.hasOwnProperty(dep.id)) {
+    if (this.$depIds.indexOf(dep.id) === -1) {
       dep.addSub(this)
-      this.$depIds[dep.id] = dep
+      this.$depIds.push(dep.id)
     }
   }
   /**
@@ -69,7 +73,7 @@ export default class Watcher {
     let val
 
     Dep.target = this
-    val = this.$getter.apply(this.$vm, this.$vm)
+    val = this.$getter.call(this.$vm, this.$vm)
     Dep.target = null
     return val
   }
