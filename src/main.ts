@@ -18,7 +18,8 @@ let yue = new Yue({
   computed: {
     computedTest () {
       let _this: any = this
-      return 'computed' + _this.test4
+      console.log(_this)
+      return 'computed ' + _this.test.test4
     }
   }
 })

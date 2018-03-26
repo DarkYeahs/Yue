@@ -44,7 +44,6 @@ export default class Observer {
    */
   defineReactive (data, key, val) {
     let dep = new Dep()
-    
     let childObj = this.obseverChild(val)
     let me = this
 

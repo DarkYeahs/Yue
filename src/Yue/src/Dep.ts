@@ -12,7 +12,7 @@
  */
 export default class Dep {
   subs: Array<any>;
-  static target: any = null;
+  static target: any = undefined;
   static uid: number = 0;
   id: number;
 

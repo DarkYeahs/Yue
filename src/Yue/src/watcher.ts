@@ -16,13 +16,13 @@ import Dep from './Dep'
  */
 export default class Watcher {
   $id: number
-  $vm:any;
+  $vm: any;
   $cb: any;
   $expOrFn: any;
   $depIds: any;
   $getter: Function;
   $value: any;
-  static $vuid:number = 0;
+  static $vuid: number = 0;
 
   constructor (vm, expOrFn, cb) {
     this.$cb = cb
@@ -74,7 +74,7 @@ export default class Watcher {
 
     Dep.target = this
     val = this.$getter.call(this.$vm, this.$vm)
-    Dep.target = null
+    Dep.target = undefined
     return val
   }
   /**
